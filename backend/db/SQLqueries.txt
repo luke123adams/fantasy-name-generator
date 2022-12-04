@@ -1,0 +1,11 @@
+---------------
+GET FIRST NAMES
+---------------
+
+SELECT Name FROM First_Names WHERE race_id=$1 AND Gender=$2;
+
+----------------
+GET SECOND NAMES
+----------------
+
+SELECT Name FROM Second_Names WHERE race_id=$1;

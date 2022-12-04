@@ -1,0 +1,107 @@
+-------------
+CREATE TABLES
+-------------
+
+CREATE TABLE Races (
+  Race_ID SERIAL PRIMARY KEY,
+  Name TEXT
+  );
+ CREATE TABLE First_names (
+   First_name_ID SERIAL PRIMARY KEY,
+   Gender TEXT,
+    Race_ID INT REFERENCES Races(Race_ID),
+    Name TEXT
+    );
+  CREATE TABLE Second_names (
+    Second_name_ID SERIAL PRIMARY KEY,
+    Race_ID int REFERENCES Races(Race_ID),
+    Name TEXT
+    );
+ 
+-----------
+SEED TABLES
+-----------
+
+INSERT INTO Races 
+(Name)
+VALUES
+('Dwarf'),
+('Elf'),
+('DragonBorn')
+;
+INSERT INTO First_Names
+(Race_ID, Gender, Name)
+VALUES
+('1', 'M', 'Adrik'),
+('1', 'M', 'Alberich'),
+('1', 'M', 'Baern'),
+('1', 'M', 'Barendd'),
+('1', 'M', 'Brottor'),
+('1', 'M', 'Bruenor'),
+('1', 'F', 'Amber'),
+('1', 'F', 'Artin'),
+('1', 'F', 'Audhild'),
+('1', 'F', 'Bardryn'),
+('1', 'F', 'Dagnal'),
+('1', 'F', 'Diesa'),
+('2', 'M', 'Adran'),
+('2', 'M','Aelar'),
+('2', 'M', 'Aramil'),
+('2', 'M', 'Arannis'),
+('2', 'M', 'Aust'),
+('2', 'M', 'Beiro'),
+('2', 'M', 'Carric'),
+('2', 'F', 'Adrie'),
+('2', 'F', 'Althaea'),
+('2', 'F', 'Anastrianna'),
+('2', 'F', 'Andraste'),
+('2', 'F', 'Antinua'),
+('2', 'F', 'Bethrynna'),
+('2', 'F', 'Birel'),
+('2', 'F', 'Caelynn'),
+('3', 'M', 'Arjhan'),
+('3', 'M', 'Balasar'),
+('3', 'M', 'Bharash'),
+('3', 'M', 'Donaar'),
+('3', 'M', 'Ghesh'),
+('3', 'M', 'Heskan'),
+('3', 'M', 'Medrash'),
+('3', 'M', 'Mehen'),
+('3', 'M', 'Nadarr'),
+('3', 'M', 'Pandjed'),
+('3', 'F', 'Akra'),
+('3', 'F', 'Biri'),
+('3', 'F', 'Daar'),
+('3', 'F', 'Farideh'),
+('3', 'F', 'Harann'),
+('3', 'F', 'Havilar'),
+('3', 'F', 'Jheri'),
+('3', 'F', 'Kava'),
+('3', 'F', 'Korinn')
+;
+INSERT INTO Second_Names
+(race_id, Name)
+VALUES
+('1', 'Balderk'),
+('1', 'Battlehammer'),
+('1', 'Brawnanvil'),
+('1', 'Dankil'),
+('1', 'Fireforge'),
+('1', 'Frostbeard'),
+('1', 'Gorunn'),
+('1', 'Holderhek'),
+('2', 'Amakiir'),
+('2', 'Amastacia'),
+('2', 'Galanodel'),
+('2', 'Holimion'),
+('2', 'Ilphelkiir'),
+('2', 'Liadon'),
+('2', 'Meliamne'),
+('2', 'Naïlo'),
+('3', 'Clethtinthiallor'),
+('3', 'Daardendrian'),
+('3', 'Delmirev'),
+('3', 'Drachedandion'),
+('3', 'Fenkenkabradon'),
+('3', 'Kepeshkmolik')
+;
