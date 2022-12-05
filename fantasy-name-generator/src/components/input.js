@@ -1,33 +1,52 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 export function Input (){
 
-    function handleClick(){
-        
+    const [ formData, setFormData ] = useState(
+        {
+            Race:"",
+            Gender: ""
+        }
+    );
+    
+    console.log(formData)
+    //const onSubmit = async data => { console.log(data); };
+
+    function handleChange(event) {
+        const {name, value, type} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+                
+            }
+        })
     }
+
 
 
     return (
     <div>
     <form>
     <fieldset>
-    <legend>Please select character details</legend>
-    <input type="radio" id="Dwarf" name="Race" value="Dwarf"></input>
-    <label for="Dwarf">Dwarf</label><br></br>
-    <input type="radio" id="Elf" name="Race" value="Elf"></input>
-    <label for="Elf">Elf</label><br></br>
-    <input type="radio" id="Dragonborn" name="Race" value="Dragonborn"></input>
-    <label for="Dragonborn">Dragonborn</label>
+    <legend>Race:</legend>
+    <input type="radio" id="Dwarf" name="Race" value="Dwarf" checked={formData.Race === "Dwarf"} onChange={handleChange} ></input>
+    <label htmlFor="Dwarf">Dwarf</label><br></br>
+    <input type="radio" id="Elf" name="Race" value="Elf" checked={formData.Race === "Elf"} onChange={handleChange}></input>
+    <label htmlFor="Elf">Elf</label><br></br>
+    <input type="radio" id="Dragonborn" name="Race" checked={formData.Race === "Dragonborn"} value="Dragonborn" onChange={handleChange}></input>
+    <label htmlFor="Dragonborn">Dragonborn</label>
     <div>
         </div>
     <br></br>
     <br></br>
-    <input type="radio" id="Male" name="Gender" value="HTML"></input>
-    <label for="Male">Male</label><br></br>
-    <input type="radio" id="Female" name="Gender" value="HTML"></input>
-    <label for="Female">Female</label><br></br>
+    <legend>Gender</legend>
+    <input type="radio" id="Male" name="Gender" value="Male" checked={formData.Gender === "Male"} onChange={handleChange}></input>
+    <label htmlFor="Male">Male</label><br></br>
+    <input type="radio" id="Female" name="Gender" value="Female" checked={formData.Gender === "Female"} onChange={handleChange}></input>
+    <label htmlFor="Female">Female</label><br></br>
     
-    <button class="generate-name" onClick={handleClick}>Generate name</button>
+    <button className="generate-name" type="submit">Generate name</button>
     </fieldset>
     <pre id="log"></pre>
     </form>

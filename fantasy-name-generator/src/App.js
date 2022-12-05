@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { Input } from './components/input';
+import React from 'react'
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
