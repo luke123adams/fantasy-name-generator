@@ -40,7 +40,7 @@ export function Input (){
         </div>
     <br></br>
     <br></br>
-    <legend>Gender</legend>
+    <legend>Gender:</legend>
     <input type="radio" id="Male" name="Gender" value="Male" checked={formData.Gender === "Male"} onChange={handleChange}></input>
     <label htmlFor="Male">Male</label><br></br>
     <input type="radio" id="Female" name="Gender" value="Female" checked={formData.Gender === "Female"} onChange={handleChange}></input>
