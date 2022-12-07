@@ -3,9 +3,8 @@ export const router = express.Router()
 
 import { getNames } from '../models/names.js'
 
-router.get('/names', async (req, res) => {
+router.get('/names/:race/:gender', async (req, res) => {
 
-    const params = req.body
-    const names = await getNames(params)
+    const names = await getNames(req.params.race, req.params.gender)
     res.json({success: true, payload: names})
 })

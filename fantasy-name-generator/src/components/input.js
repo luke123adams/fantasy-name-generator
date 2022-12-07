@@ -13,7 +13,7 @@ export function Input (){
     //const onSubmit = async data => { console.log(data); };
 
     function handleChange(event) {
-        const {name, value, type} = event.target
+        const {name, value} = event.target
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -30,11 +30,11 @@ export function Input (){
     <form>
     <fieldset>
     <legend>Race:</legend>
-    <input type="radio" id="Dwarf" name="Race" value="Dwarf" checked={formData.Race === "Dwarf"} onChange={handleChange} ></input>
+    <input type="radio" id="Dwarf" name="Race" value="1" checked={formData.Race === "1"} onChange={handleChange} ></input>
     <label htmlFor="Dwarf">Dwarf</label><br></br>
-    <input type="radio" id="Elf" name="Race" value="Elf" checked={formData.Race === "Elf"} onChange={handleChange}></input>
+    <input type="radio" id="Elf" name="Race" value="2" checked={formData.Race === "2"} onChange={handleChange}></input>
     <label htmlFor="Elf">Elf</label><br></br>
-    <input type="radio" id="Dragonborn" name="Race" checked={formData.Race === "Dragonborn"} value="Dragonborn" onChange={handleChange}></input>
+    <input type="radio" id="Dragonborn" name="3" checked={formData.Race === "3"} onChange={handleChange}></input>
     <label htmlFor="Dragonborn">Dragonborn</label>
     <div>
         </div>
