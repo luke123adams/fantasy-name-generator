@@ -1,11 +1,19 @@
 import './App.css';
 import { Input } from './components/input';
 import React, {useState} from 'react'
+// import useRNG from './components/hooks/useRNG';
 
 function App() {
 
 
 const [result, setResult ] = useState("")
+const [randomNumber, setRandomNumber] = useState()
+const [ formData, setFormData ] = useState(
+  {
+      race:"",
+      gender: ""
+  }
+);
 
 
   async function getRandomName() {
@@ -18,13 +26,13 @@ const [result, setResult ] = useState("")
   };
 
 
+function getNumber(n){
+setRandomNumber((Math.ceil(Math.random()*n)));
+console.log(randomNumber)
+}
 
-  const [ formData, setFormData ] = useState(
-    {
-        race:"",
-        gender: ""
-    }
-);
+
+
 
 function handleChange(event) {
     const {name, value} = event.target
@@ -37,6 +45,7 @@ function handleChange(event) {
     })
 }
 
+
 function buttonDisabler(formData){
 if (formData.race === "" || formData.gender === ""){
   return true
@@ -45,6 +54,8 @@ else {
   return false
 }
 }
+
+
 
   return (
     <div className="App">
@@ -77,6 +88,19 @@ else {
     <button className="generate-name" onClick={getRandomName} disabled={buttonDisabler(formData)}>Generate name</button>
     <p>{result}</p>
       </header>
+      <div class="grid-container">
+  <button class="grid-item" onClick={()=>getNumber(100)}>Roll a d100</button>
+  <button class="grid-item" onClick={()=>getNumber(20)}>Roll a d20</button>
+  <button class="grid-item" onClick={()=>getNumber(12)}>Roll a d12</button>
+  <button class="grid-item" onClick={()=>getNumber(10)}>Roll a d10</button>
+  <button class="grid-item" onClick={()=>getNumber(8)}>Roll a d8</button>
+  <button class="grid-item" onClick={()=>getNumber(6)}>Roll a d6</button>
+  <button class="grid-item" onClick={()=>getNumber(4)}>Roll a d4</button>
+
+
+  <div class="grid-item">{}</div>
+  <text>{randomNumber}</text>
+  </div>
     </div>
   );
 }
