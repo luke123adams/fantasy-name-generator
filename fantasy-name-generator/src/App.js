@@ -15,6 +15,7 @@ const [ formData, setFormData ] = useState(
   }
 );
 
+let nameArr = []
 
   async function getRandomName() {
     const response = await fetch(`http://localhost:3000/api/names/${formData.race}/${formData.gender}`,
@@ -31,8 +32,10 @@ setRandomNumber((Math.ceil(Math.random()*n)));
 console.log(randomNumber)
 }
 
-
-
+function saveName(){
+nameArr.push(result)
+console.log(nameArr)
+}
 
 function handleChange(event) {
     const {name, value} = event.target
@@ -86,7 +89,9 @@ else {
         </form>
         </div>
     <button className="generate-name" onClick={getRandomName} disabled={buttonDisabler(formData)}>Generate name</button>
+    <button className="save-name" onClick={saveName}>Save name</button>
     <p>{result}</p>
+    <text>{nameArr}</text>
       </header>
       <div class="grid-container">
   <button class="grid-item" onClick={()=>getNumber(100)}>Roll a d100</button>
