@@ -2,15 +2,16 @@ import React, {useState} from 'react'
 
 
 export function Input (){
-
+    const [result, setResult ] = useState("")
     const [ formData, setFormData ] = useState(
         {
-            Race:"",
-            Gender: ""
+            race:"",
+            gender: ""
         }
     );
     
-    console.log(formData)
+    console.log(formData.race, formData.gender)
+    console.log(buttonDisabler(formData))
     //const onSubmit = async data => { console.log(data); };
 
     function handleChange(event) {
@@ -23,6 +24,24 @@ export function Input (){
             }
         })
     }
+
+    async function getRandomName() {
+        const response = await fetch(`http://localhost:3000/api/names/${formData.race}/${formData.gender}`,
+        );
+        const data = await response.json(response);
+        console.log(data.payload);
+        console.log(JSON.stringify(formData))
+        setResult(data.payload);
+      };
+
+      function buttonDisabler(formData){
+        if (formData.race === '' || formData.gender === ''){
+          return true
+        }
+        else {
+          return false
+        }
+        }
 
 
 
@@ -49,5 +68,7 @@ export function Input (){
         </fieldset>
         <pre id="log"></pre>
         </form>
+        <button className="generate-name" onClick={getRandomName} disabled={buttonDisabler(formData)}>Generate name</button>
+    <p>{result}</p>
         </div>
 )}
