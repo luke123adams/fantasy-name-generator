@@ -68,3 +68,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+URI'S SUPER DOOPER FANTASY NAME GENERATOR AND DM TOOLKIT
+
+TODO:
+
+Import modules from todo app
+signin -
+create users table
+add modal to app page 
+use cookies to send user details to db
+
+
+add new saved names list to database
+listheader needs to display items from saved names
+need a button on the name generator to send names to saved names
+
