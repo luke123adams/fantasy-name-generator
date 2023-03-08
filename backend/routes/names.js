@@ -3,6 +3,7 @@ export const router = express.Router()
 import { addNewUser } from '../models/signup.js'
 import { getNames } from '../models/names.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 router.get('/names/:race/:gender', async (req, res) => {
 
@@ -17,6 +18,7 @@ router.post('/signup' , async (req, res) => {
     const { email, password } = req.body
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(password, salt)
+    const token = jwt.sign({ email }, 'secret', { expiresIn: '1hr' })
 
     const response = await addNewUser(email, hashedPassword)
     res.json({ email, token })
