@@ -2,26 +2,19 @@ import Modal from "../../../../react todo Kubow tutorial/todo-tutorial/client/sr
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-export default function ListHeader({ listName, getData }) {
-    const [showModal, setShowModal] = useState(false)
+export default function ListHeader() {
+    
     const [cookies, setCookie, removeCookie] = useCookies(null)
+    const userEmail = cookies.Email
 
 
-    const signOut = () => {
-        console.log("signout")
-        removeCookie('Email')
-        removeCookie('AuthToken')
-        window.location.reload()
-    }
+    
     
     return (
       <div className="list-header">
-      <h1>{listName}</h1>
+      <h1>Welcome back, {userEmail}</h1>
       <div className="button-container">
-        <button className="create" onClick={()=> setShowModal(true)}>ADD NEW</button>
-        <button className="signout" onClick={signOut}>SIGN OUT</button>
       </div>
-      {showModal && <Modal mode={'create'} setShowModal={setShowModal} getData={getData} />}
       </div>
     );
   }

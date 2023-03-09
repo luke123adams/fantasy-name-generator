@@ -15,8 +15,8 @@ function App() {
 
   const [fullName, setFullName ] = useState({
     name: "",
-    race:"",
-    gender:""
+    race: "",
+    gender: ""
   })
 
   const [cookies, setCookie, removeCookie] = useCookies(null)
@@ -95,10 +95,10 @@ function App() {
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
         </div>
       </header>
-      {showList && <UserList savedNames={savedNames} setShowList={()=>{setShowList()}}/>}
+      {showList && <UserList fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}}/>}
       <Input getRandomName={getRandomName}/>
       <p>{fullName.name}
-      {fullName.name !== "" && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
+      {fullName.name.length !== 0 && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
       <DiceRoller/>
     </div>
   );

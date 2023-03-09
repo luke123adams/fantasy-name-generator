@@ -1,4 +1,5 @@
 import { pool } from '../db/index.js'
+import { v4 } from 'uuid'
 
 export async function getNames(race, gender) {
 
@@ -14,8 +15,9 @@ export async function getNames(race, gender) {
 export async function addName (fullName, userEmail) {
 
     const { name, race, gender } = fullName
+    const id = v4()
     
-    const response = await pool.query("INSERT INTO saved_names (user_email, full_name, race_id, gender) VALUES ($1, $2, $3, $4)", [userEmail, name, race, gender])
+    const response = await pool.query("INSERT INTO saved_names (id, user_email, full_name, race_id, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *", [id, userEmail, name, race, gender])
 
     return response
 }
