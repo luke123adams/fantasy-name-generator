@@ -19,14 +19,15 @@ export default function Auth(setShowAuth, showAuth) {
   };
 
   const handleSubmit = async (e, endpoint) => {
-    e.preventDefault();
+     e.preventDefault();
+    // console.log(e.target.value)
     if (!isLogIn && password !== confirmPassword) {
       setError("make sure passwords match!");
       return;
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_SERVERURL}/${endpoint}`,
+      `${process.env.REACT_APP_SERVERURL}/api/${endpoint}`,
       {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -35,13 +36,13 @@ export default function Auth(setShowAuth, showAuth) {
     );
 
     const data = await response.json();
-    
+    console.log(data)
     if (data.detail) {
       setError(data.detail)
     } else {
       setCookie('Email', data.email)
       setCookie('AuthToken', data)
-
+      console.log(cookies)
       window.location.reload()
     }
   };
