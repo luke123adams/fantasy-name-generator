@@ -1,7 +1,7 @@
 import express from 'express'
 export const router = express.Router()
 import { addNewUser, logInUser } from '../models/signup.js'
-import { getNames } from '../models/names.js'
+import { getNames, addName } from '../models/names.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -54,5 +54,18 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
           console.error(err)
+    }
+})
+
+router.post('/user-list/', async (req, res) => {
+
+    const { email, fullName, formData} = req.body
+
+    try {
+        const addName = await addName(email, fullName, formData)
+        res.json({success: true})
+
+    } catch (err) {
+        console.error(err)
     }
 })

@@ -5,6 +5,7 @@ import React, {useState, useEffect} from 'react'
 import Auth from './components/Auth.js';
 import Modal from './components/Modal';
 import { Login } from './components/login';
+import UserList from './components/savedNames';
 import { useCookies } from 'react-cookie';
 
 // import useRNG from './components/hooks/useRNG';
@@ -12,9 +13,11 @@ import { useCookies } from 'react-cookie';
 
 function App() {
 
-  const [result, setResult ] = useState("")
+  const [fullName, setFullName ] = useState("")
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const [showAuth, setShowAuth] = useState(false)
+  const [showList, setShowList] = useState(false)
+  const [savedNames, setSavedNames] = useState([])
   const authToken = cookies.AuthToken
   const userEmail = cookies.Email
 
@@ -25,8 +28,23 @@ function App() {
     const data = await response.json(response);
     console.log(data.payload);
     console.log(JSON.stringify(formData))
-    setResult(data.payload);
+    setFullName(data.payload);
   };
+
+  async function addName(email, fullName, formData) {
+    console.log(email)
+    console.log(fullName)
+    console.log(formData)
+    // const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
+    // {
+    //   method: "POST",
+    //   headers: { "Content-type": "application/json" },
+    //   body: JSON.stringify({ email, fullName, formData }),
+    // }
+    
+    // )
+    // return response
+  }
 
   // useEffect((formData)=>{
     
@@ -53,13 +71,22 @@ function App() {
         removeCookie('AuthToken')
         setShowAuth(false)
         }}>SIGN OUT</button>}
+        {authToken && <button 
+        
+        onClick={()=>{
+          console.log('display list')
+          setShowList(true)
+
+        }}>View my saved names</button>}
         </div>
         <div>
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
         </div>
       </header>
+      {showList && <UserList savedNames={savedNames} setShowList={()=>{setShowList()}}/>}
       <Input getRandomName={getRandomName}/>
-      <p>{result}</p>
+      <p>{fullName}
+      {fullName !== "" && <button class="name-display" onClick ={(email, fullName, formData)=>{addName(email, fullName, formData)}} >Add to list</button>}</p>
       <DiceRoller/>
     </div>
   );

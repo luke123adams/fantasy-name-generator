@@ -10,3 +10,10 @@ export async function getNames(race, gender) {
     let response = result.join(" ")
     return response;
 }
+
+export async function addName (email, fullName, formData) {
+    const { race, gender } = formData
+    const response = await pool.query("INSERT INTO saved_names (user_email, full_name, race_id, gender) VALUES ($1, $2, $3, $4)", [email, fullName, race, gender])
+
+    return response
+}
