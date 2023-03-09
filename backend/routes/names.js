@@ -59,10 +59,11 @@ router.post('/login', async (req, res) => {
 
 router.post('/user-list/', async (req, res) => {
 
-    const { email, fullName, formData} = req.body
+    const { fullName, userEmail } = req.body
+    // const {} = req.body.formData
 
     try {
-        const addName = await addName(email, fullName, formData)
+        const addName = await addName(fullName, userEmail)
         res.json({success: true})
 
     } catch (err) {

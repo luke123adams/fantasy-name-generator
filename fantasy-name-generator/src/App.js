@@ -13,7 +13,12 @@ import { useCookies } from 'react-cookie';
 
 function App() {
 
-  const [fullName, setFullName ] = useState("")
+  const [fullName, setFullName ] = useState({
+    name: "",
+    race:"",
+    gender:""
+  })
+
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const [showAuth, setShowAuth] = useState(false)
   const [showList, setShowList] = useState(false)
@@ -28,22 +33,29 @@ function App() {
     const data = await response.json(response);
     console.log(data.payload);
     console.log(JSON.stringify(formData))
-    setFullName(data.payload);
+    setFullName({
+      name: data.payload,
+      race: formData.race,
+      gender: formData.gender
+    });
+    console.log(fullName)
   };
 
-  async function addName(email, fullName, formData) {
-    console.log(email)
-    console.log(fullName)
-    console.log(formData)
-    // const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
-    // {
-    //   method: "POST",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify({ email, fullName, formData }),
-    // }
+  async function addName() {
+     const { name, race, gender } = fullName    
+   console.log(name)
+   console.log(userEmail)
+   console.log(race)
+   console.log(gender)
+    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
+    {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ fullName, userEmail}),
+    }
     
-    // )
-    // return response
+    )
+    return response
   }
 
   // useEffect((formData)=>{
@@ -85,8 +97,8 @@ function App() {
       </header>
       {showList && <UserList savedNames={savedNames} setShowList={()=>{setShowList()}}/>}
       <Input getRandomName={getRandomName}/>
-      <p>{fullName}
-      {fullName !== "" && <button class="name-display" onClick ={(email, fullName, formData)=>{addName(email, fullName, formData)}} >Add to list</button>}</p>
+      <p>{fullName.name}
+      {fullName.name !== "" && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
       <DiceRoller/>
     </div>
   );
