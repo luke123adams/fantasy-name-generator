@@ -22,6 +22,7 @@ function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const [showAuth, setShowAuth] = useState(false)
   const [showList, setShowList] = useState(false)
+  const [showDiceRoller, setShowDiceRoller] = useState(false)
   const [savedNames, setSavedNames] = useState([])
   const authToken = cookies.AuthToken
   const userEmail = cookies.Email
@@ -130,7 +131,8 @@ function App() {
       <Input getRandomName={getRandomName}/>
       <p>{fullName.name}
       {fullName.name.length !== 0 && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
-      <DiceRoller/>
+      <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>
+      {showDiceRoller && <DiceRoller setShowDiceRoller={setShowDiceRoller}/>}
     </div>
   );
 }

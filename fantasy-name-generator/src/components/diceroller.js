@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react'
 
-export function DiceRoller(){
+export function DiceRoller({setShowDiceRoller}){
 
    // const [randomNumber, setRandomNumber] = useState ("")
     const [noOfDice, setNoOfDice] = useState(1)
+    const [modifier, setModifier] = useState(0)
     const [diceTypeCounter, setDiceTypeCounter] = useState(6)
     const [diceType, setDiceType] = useState(4)
     const [diceRolls, setDiceRolls] = useState([])
+    const [diceTotal, setDiceTotal] = useState(0)
+
+    
 
 
   useEffect(()=>{switch(diceTypeCounter) {
@@ -34,12 +38,8 @@ export function DiceRoller(){
 
     default: setDiceType(null)
   }
-},) 
-
-  const onChange = (n) => {
-    setNoOfDice(parseInt(n))
-  }
-
+},)
+   
 
   const diceTypeUp = ()=>{
    if (diceTypeCounter <= 6) {
@@ -50,39 +50,59 @@ export function DiceRoller(){
    if (diceTypeCounter >= 2)
     setDiceTypeCounter(count => count-1)}
 
-// const onSubmit = () => {   
-//     let results = []
+const handleClick = (e) => {  
+    e.preventDefault()
     
-//     for (let i = 1; i < noOfDice; i++) {
+    let results = []
 
-// results.push((Math.ceil(Math.random()*diceType)));
-//     }
-//     setDiceRolls(results)
-//     console.log(diceRolls)
-// }
+    
+    for (let i = 0; i < noOfDice; i++) {
+console.log((Math.ceil(Math.random()*diceType)))
+results.push((Math.ceil(Math.random()*diceType)));
+    }
+    setDiceRolls(results)
+    console.log(results)
+
+    const calculateSum = (e) => {
+        return e.reduce((total, current)=> {
+            return total + current;
+        }, 0)
+    }   
+    setDiceTotal(calculateSum(results))
+    console.log(diceTotal)
+}
 
 return (
+    
 <div class="grid-container">
 
   <div className="counter">
-    <h1>Dice Roller</h1>
+  <div class="grid-container">
+    <h1>Dice Roller
+    <button onClick={()=>{setShowDiceRoller(false)}}>X</button></h1>
+    </div>
     <br></br>
-    <input onChange={(event)=>{onChange(event.target.value)}}type="number" id="quantity" name="quantity" min="1" max="10" placeholder={noOfDice}></input>
-    <span className="dice-type">D{diceType}</span>
+    <input onChange={(event)=>{setNoOfDice(event.target.value)}} type="number" placeholder={noOfDice} id="quantity" name="quantity" min="1" max="10"></input>
+    <span className="dice-type"> D{diceType} + </span>
+    <input onChange={(event)=>{setModifier(event.target.value)}} type="number" placeholder={modifier} id="quantity" name="quantity" min="1" max="10"></input>
+    <span className="dice-roll-result"> = {diceTotal+parseInt(modifier)}</span>
     <br></br>
-    <span className="dice-roll-result">{diceRolls}</span>
     <button onClick={diceTypeDown}>-</button>
       <button onClick={diceTypeUp}>+</button>
     <div className="btn__container">
-      <form>
-      <input type= "submit"></input>
-      </form>
+      
+     <input type="submit" onClick={(event)=>handleClick(event)}></input>
+           
     </div>
   </div>
 
 
 <div class="grid-item">{}</div>
-<text>{diceRolls}</text>
+<text>{diceRolls.map((result)=>
+    
+        <li>{result}</li>
+    
+)}</text>
 </div>
 )
 }
