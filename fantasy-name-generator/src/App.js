@@ -87,6 +87,17 @@ function App() {
 
     return response
   }
+
+  const addToListButton = () => {
+    return (
+      <div>
+      {authToken !== undefined
+        ? <button class="name-display" onClick ={()=>{addName()}}>Add to list</button>
+        : <p>Sign in to save names</p>
+      }
+      </div>
+    )
+  }
  
 
   // useEffect((formData)=>{
@@ -130,7 +141,8 @@ function App() {
       {showList && <UserList savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
       <Input getRandomName={getRandomName}/>
       <p>{fullName.name}
-      {fullName.name.length !== 0 && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
+      {fullName.name.length !== 0 && addToListButton()}
+      </p>
       <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>
       {showDiceRoller && <DiceRoller setShowDiceRoller={setShowDiceRoller}/>}
     </div>
