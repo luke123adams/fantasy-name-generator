@@ -21,3 +21,16 @@ export async function addName (fullName, userEmail) {
 
     return response
 }
+
+export async function getUserNames(userEmail) {
+
+    const response = await pool.query('SELECT * FROM saved_names WHERE user_email=$1', [userEmail])
+
+    return response.rows
+
+}
+
+export async function  deleteName (name, userEmail) {
+
+    const response = await pool.query('DELETE FROM saved_names WHERE user_email=$1 AND full_name=$2', [userEmail, name])
+}

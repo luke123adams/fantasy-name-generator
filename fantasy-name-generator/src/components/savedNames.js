@@ -1,19 +1,25 @@
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
-export default function UserList({ fullName, setShowList, userEmail }) {
+export default function UserList({ userEmail, savedNames, setShowList, deleteName }) {
 
-    
-    
-     const { name } = fullName
+
 
     return (
         <div>
-        <h1>Welcome back, {userEmail}</h1>
-        {name}
+        <h1 style={{display: "inline-block"}}>Welcome back, {userEmail}
+        <button onClick={()=>{setShowList(false)}}>X</button>
+        </h1>
         <br>
         </br>
-        <button onClick={()=>{setShowList(false)}}>X</button>
+        {savedNames.map((name)=>
+        <div>
+        <p style={{display: 'inline-block'}}>{name.full_name}</p>
+        <button style={{display: 'inline-block'}} onClick={()=>{
+            deleteName(name.full_name)
+        }}>Delete</button>
+        </div>
+        )}
         </div>
     )
 

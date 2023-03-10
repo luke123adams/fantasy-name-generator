@@ -26,6 +26,9 @@ function App() {
   const authToken = cookies.AuthToken
   const userEmail = cookies.Email
 
+  useEffect(()=>{
+    console.log('listChanged')
+  }, [savedNames])
 
   async function getRandomName(formData) {
     const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,
@@ -41,22 +44,49 @@ function App() {
     console.log(fullName)
   };
 
+
+  async function getNames(){
+    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list/${userEmail}`)
+    const data = await response.json()
+   setSavedNames(data.payload)
+    console.log(data.payload)
+  }
+
   async function addName() {
-     const { name, race, gender } = fullName    
-   console.log(name)
-   console.log(userEmail)
-   console.log(race)
-   console.log(gender)
-    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
+    const { name, race, gender } = fullName    
+  console.log(name)
+  console.log(userEmail)
+  console.log(race)
+  console.log(gender)
+   const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
+   {
+     method: "POST",
+     headers: { "Content-type": "application/json" },
+     body: JSON.stringify({ fullName, userEmail}),
+   })
+
+   getNames()
+   return response
+ }
+
+  async function deleteName(full_name) {
+
+    console.log(full_name)
+    console.log(userEmail)
+
+
+    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/user-list`, 
     {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ fullName, userEmail}),
-    }
-    
-    )
+      method: "DELETE",
+     headers: { "Content-type": "application/json" },
+     body: JSON.stringify({ full_name, userEmail}),
+    })
+
+    getNames()
+
     return response
   }
+ 
 
   // useEffect((formData)=>{
     
@@ -82,20 +112,21 @@ function App() {
         removeCookie('Email')
         removeCookie('AuthToken')
         setShowAuth(false)
+        setShowList(false)
         }}>SIGN OUT</button>}
         {authToken && <button 
         
         onClick={()=>{
-          console.log('display list')
+          getNames(userEmail)
           setShowList(true)
-
+          console.log(savedNames)
         }}>View my saved names</button>}
         </div>
         <div>
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
         </div>
       </header>
-      {showList && <UserList fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}}/>}
+      {showList && <UserList savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
       <Input getRandomName={getRandomName}/>
       <p>{fullName.name}
       {fullName.name.length !== 0 && <button class="name-display" onClick ={()=>{addName()}} >Add to list</button>}</p>
