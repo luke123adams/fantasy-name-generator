@@ -5,7 +5,7 @@ import React, {useState, useEffect} from 'react'
 import Auth from './components/Auth.js';
 import Modal from './components/Modal';
 import { Login } from './components/login';
-import UserList from './components/savedNames';
+import UserList from './components/UserList';
 import { useCookies } from 'react-cookie';
 
 // import useRNG from './components/hooks/useRNG';
