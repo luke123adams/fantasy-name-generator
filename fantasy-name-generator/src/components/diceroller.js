@@ -143,11 +143,7 @@ return (
 
 
 <div class="grid-item">{}</div>
-<text>{diceRolls.map((result)=>
-    
-        <li>{result}</li>
-    
-)}</text>
+{diceRolls.length > 1 ?? <text>{diceRolls.map((roll)=><text>{roll}, </text>)}</text>}
 {showHistory && <DiceHistory setShowHistory={setShowHistory} diceHistory={diceHistory} setDiceHistory={setDiceHistory} calculateSum={calculateSum}/>}
 
 </div>

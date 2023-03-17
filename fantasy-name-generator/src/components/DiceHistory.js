@@ -1,9 +1,5 @@
 import React, {useState, useEffect} from 'react'
 
-// Historic re roller
-// clicking re roll button will change the dice rolls
-// replaces specific roll in the history
-// take calculateSum and 
 
 export function DiceHistory ({diceHistory, setDiceHistory, setShowHistory, calculateSum}) {
 
@@ -28,6 +24,14 @@ results.push((Math.ceil(Math.random()*type)));
         ...diceHistory.slice(index+1)
     ])
     }
+
+    const deleteRow = (index) => {
+        setDiceHistory([
+            ...diceHistory.slice(0, index),
+            ...diceHistory.slice(index+1)
+        ])
+        
+    }
     
 
     return (
@@ -35,7 +39,7 @@ results.push((Math.ceil(Math.random()*type)));
         <div>
     <button onClick={()=>{console.log(diceHistory[0].total)}}>console log</button>
     {diceHistory.map((results, i)=>
-        <li>{results.rolls.length}D{results.D} + {results.mod} = {results.total} ({results.rolls.map((roll)=><text>{roll}, </text>)}) <button onClick={()=>{reRollHistoric(results.rolls.length, results.D, results.mod, i)}}>Re-roll</button></li>
+        <li>{results.rolls.length}D{results.D} + {results.mod} = {results.total} ({results.rolls.map((roll)=><text>{roll}, </text>)}) <button onClick={()=>{reRollHistoric(results.rolls.length, results.D, results.mod, i)}}>Re-roll</button> <button onClick={()=>{deleteRow(i)}}>Delete roll</button></li>
     )}
     <button onClick={()=>{setDiceHistory([])}}>Clear History</button>
     <button onClick={()=>{setShowHistory(false)}}>X</button>
