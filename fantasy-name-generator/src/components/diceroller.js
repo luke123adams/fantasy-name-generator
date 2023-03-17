@@ -82,6 +82,12 @@ export function DiceRoller({setShowDiceRoller}){
    if (diceTypeCounter >= 2)
     setDiceTypeCounter(count => count-1)}
 
+    const calculateSum = (e) => {
+        return e.reduce((total, current)=> {
+            return total + current;
+        }, 0)
+    }
+
 const handleClick = (e) => {  
     e.preventDefault()
     
@@ -94,12 +100,7 @@ results.push((Math.ceil(Math.random()*diceType)));
     }
     setDiceRolls(results)
    // console.log(results)
-
-    const calculateSum = (e) => {
-        return e.reduce((total, current)=> {
-            return total + current;
-        }, 0)
-    }   
+   
     setDiceTotal(calculateSum(results))
   //  console.log(diceTotal)
 
@@ -147,7 +148,7 @@ return (
         <li>{result}</li>
     
 )}</text>
-{showHistory && <DiceHistory setShowHistory={setShowHistory} diceHistory={diceHistory} setDiceHistory={setDiceHistory}/>}
+{showHistory && <DiceHistory setShowHistory={setShowHistory} diceHistory={diceHistory} setDiceHistory={setDiceHistory} calculateSum={calculateSum}/>}
 
 </div>
 )
