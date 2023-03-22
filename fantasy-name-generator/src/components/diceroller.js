@@ -136,14 +136,15 @@ return (
     <div className="btn__container">
       
      <input type="submit" onClick={(event)=>handleClick(event)}></input>
-     {historyDisabler(diceHistory) && <button onClick= {()=>{setShowHistory(true)}} disabled = {showHistory}>view history</button>}
+     {historyDisabler(diceHistory) && <button onClick={()=>{setShowHistory(true)}} disabled = {showHistory}>view history</button>}
      <button onClick={()=>{setShowHistory(false); console.log(diceHistory)}}>console log history</button>        
     </div>
   </div>
 
 
 <div class="grid-item">{}</div>
-{diceRolls.length > 1 ?? <text>{diceRolls.map((roll)=><text>{roll}, </text>)}</text>}
+<button onClick={()=>console.log(diceRolls.length)}>console log dice rolls array</button>
+{diceRolls.map((roll, index)=>index !== diceRolls.length-1 ? <text>{roll}, </text> : <text>{roll}</text>)} 
 {showHistory && <DiceHistory setShowHistory={setShowHistory} diceHistory={diceHistory} setDiceHistory={setDiceHistory} calculateSum={calculateSum}/>}
 
 </div>

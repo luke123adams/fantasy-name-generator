@@ -143,7 +143,7 @@ function App() {
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
       </p>
-      <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>
+      {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>}
       {showDiceRoller && <DiceRoller setShowDiceRoller={setShowDiceRoller}/>}
     </div>
   );
