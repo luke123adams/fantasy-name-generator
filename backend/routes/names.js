@@ -1,7 +1,7 @@
 import express from 'express'
 export const router = express.Router()
 import { addNewUser, logInUser } from '../models/signup.js'
-import { getNames, addName, getUserNames, deleteName } from '../models/names.js'
+import { getNames, addName, getUserNames, deleteName, editDescription } from '../models/names.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -89,4 +89,13 @@ router.delete('/user-list' , async (req, res) => {
     const deletedName = await deleteName(full_name, userEmail)
 
     res.json({success: true, payload: deletedName})
+})
+
+router.patch('/user-list', async (req, res) => {
+
+    const { id, description } = req.body
+    
+    const editedDescription = await editDescription(description, id)
+
+    res.json({success: true, payload: editedDescription})
 })

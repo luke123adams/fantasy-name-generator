@@ -34,3 +34,12 @@ export async function  deleteName (name, userEmail) {
 
     const response = await pool.query('DELETE FROM saved_names WHERE user_email=$1 AND full_name=$2', [userEmail, name])
 }
+
+export async function editDescription(description, id) {
+
+    console.log(id, description)
+
+
+
+    const response = await pool.query(`UPDATE saved_names SET description=$1 WHERE id=$2`, [description, id])
+}
