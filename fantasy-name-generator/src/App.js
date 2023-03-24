@@ -139,7 +139,7 @@ function App() {
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
         </div>
       </header>
-      {showList && <UserList savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+      {showList && <UserList getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
       <Input getRandomName={getRandomName}/>
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
