@@ -46,7 +46,16 @@ export function Input ({getRandomName}){
         <input type="radio" id="Elf" name="race" value="2" checked={formData.race === "2"} onChange={handleChange}></input>
         <label htmlFor="Elf">Elf</label><br></br>
         <input type="radio" id="Dragonborn" name="race" value="3" checked={formData.race === "3"} onChange={handleChange}></input>
-        <label htmlFor="Dragonborn">Dragonborn</label>
+        <label htmlFor="Dragonborn">Dragonborn</label><br></br>
+        <input type="radio" id="Human (Calashite)" name="race" value="4" checked={formData.race === "4"} onChange={handleChange}></input>
+        <label htmlFor="Human (Calashite)">Human (Calashite)</label><br></br>
+        <input type="radio" id="Human (Chondathan)" name="race" value="5" checked={formData.race === "5"} onChange={handleChange}></input>
+        <label htmlFor="Human (Chondathan)">Human (Chondathan)</label><br></br>
+        <input type="radio" id="Human (Damaran)" name="race" value="6" checked={formData.race === "6"} onChange={handleChange}></input>
+        <label htmlFor="Human (Damaran)">Human (Damaran)</label><br></br>
+        <input type="radio" id="Human (Chondathan)" name="race" value="7" checked={formData.race === "7"} onChange={handleChange}></input>
+        <label htmlFor="Human (Illuskan)">Human (Illuskan)</label><br></br>
+        
         <div>
             </div>
         <br></br>

@@ -6,6 +6,9 @@ export default function UserList({ userEmail, savedNames, setShowList, deleteNam
     const [showDetails, setShowDetails] = useState(false)
     const [editMode, setEditMode] = useState(false)
 
+    const { race_id } = savedNames
+
+
     const handleClick = async (id, e) => {
 
         let description = e.value
@@ -32,7 +35,7 @@ export default function UserList({ userEmail, savedNames, setShowList, deleteNam
         </h1>
         <br>
         </br>
-        {savedNames.map((name, index)=>
+        {savedNames.map((name)=>
         <div>
         <p style={{display: 'inline-block'}}>{name.full_name}</p>
         {!showDetails && <button onClick={()=>{setShowDetails(true)}}>Details</button>}
