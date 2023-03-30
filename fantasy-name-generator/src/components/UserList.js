@@ -1,31 +1,9 @@
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { NameEditor } from './NameEditor'
+import { ListItem } from './ListItem'
 
 export default function UserList({ userEmail, savedNames, setShowList, deleteName, getNames }) {
-
-    const [showDetails, setShowDetails] = useState(false)
-    const [editMode, setEditMode] = useState(false)
-
-    const { race_id } = savedNames
-
-
-    const handleClick = async (id, e) => {
-
-        let description = e.value
-        // setEditMode(false)
-        const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list`,
-        {
-          method: "PATCH",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({description, id}),
-        })
-        getNames()
-        setEditMode(false)
-
-        return response
-        
-    }
-
 
 
     return (
@@ -37,14 +15,8 @@ export default function UserList({ userEmail, savedNames, setShowList, deleteNam
         </br>
         {savedNames.map((name)=>
         <div>
-        <p style={{display: 'inline-block'}}>{name.full_name}</p>
-        {!showDetails && <button onClick={()=>{setShowDetails(true)}}>Details</button>}
-        {showDetails &&
-        <div>
-        {!editMode? <p>{name.description}</p> : <textarea id={name.id} className="description-editor" rows="4" cols="50">{name.description}</textarea>}
-        {editMode ? <button onClick={()=>{handleClick(name.id, document.getElementById(name.id))}}>Save changes</button> : <button onClick={()=>{setEditMode(true)}}>Edit</button>}
-        </div>
-        }
+        <p>{name.full_name}</p>
+        <NameEditor getNames={()=>{getNames()}} nameId={name.id} fullName={name.full_name} description={name.description}></NameEditor>
         <button style={{display: 'inline-block'}} onClick={()=>{
             deleteName(name.full_name)
         }}>Delete</button>

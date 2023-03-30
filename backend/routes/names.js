@@ -93,9 +93,9 @@ router.delete('/user-list' , async (req, res) => {
 
 router.patch('/user-list', async (req, res) => {
 
-    const { id, description } = req.body
+    const { newDescription, nameId } = req.body
     
-    const editedDescription = await editDescription(description, id)
+    const editedDescription = await editDescription(newDescription, nameId)
 
     res.json({success: true, payload: editedDescription})
 })
