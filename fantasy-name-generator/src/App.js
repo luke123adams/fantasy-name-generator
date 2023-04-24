@@ -36,7 +36,7 @@ function App() {
     const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`, {
       mode: "no-cors"
     });
-    const data = await response.json(response);
+    const data = await response.json();
     console.log(data.payload);
     console.log(JSON.stringify(formData))
     setFullName({
