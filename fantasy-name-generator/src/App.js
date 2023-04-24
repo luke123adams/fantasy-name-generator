@@ -33,9 +33,8 @@ function App() {
 
   async function getRandomName(formData) {
     console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`)
-    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`, 
-    {
-      mode: "no-cors"
+    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,{
+      headers: {"Access-Control-Allow-Origin" : "https://fng-backend.onrender.com/"}
     }
     );
     const data = await response.json(response);

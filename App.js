@@ -11,8 +11,9 @@ const app = express();
 import { router } from "./backend/routes/names.js"
 
 
-app.use(cors(
-))
+app.use(cors({
+    origin: "https://fng-backend2.onrender.com"
+}))
 app.use(express.json());
 
 app.use(morgan("dev"))
