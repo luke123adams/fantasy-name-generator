@@ -34,9 +34,8 @@ function App() {
   async function getRandomName(formData) {
     console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`)
     const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,{
-      headers: {"Access-Control-Allow-Origin" : "https://lukes-dm-toolkit.onrender.com/"}
-    }
-    );
+      mode: "no-cors"
+  });
     const data = await response.json(response);
     console.log(data.payload);
     console.log(JSON.stringify(formData))
