@@ -32,7 +32,10 @@ function App() {
   }, [savedNames])
 
   async function getRandomName(formData) {
-    console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`)
+    console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,
+    {
+      headers: {"Access-Control-Allow-Origin" : "*"}
+    })
     const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,
     );
     const data = await response.json(response);
@@ -48,10 +51,7 @@ function App() {
 
 
   async function getNames(){
-    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list/${userEmail}`,
-    {
-      headers: {"Access-Control-Allow-Origin": "*"}
-    })
+    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list/${userEmail}`,)
     const data = await response.json()
    setSavedNames(data.payload)
     console.log(data.payload)
