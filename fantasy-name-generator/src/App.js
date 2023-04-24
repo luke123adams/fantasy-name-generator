@@ -33,9 +33,9 @@ function App() {
 
   async function getRandomName(formData) {
     console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`)
-    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`,{
+    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`, {
       mode: "no-cors"
-  });
+    });
     const data = await response.json(response);
     console.log(data.payload);
     console.log(JSON.stringify(formData))
