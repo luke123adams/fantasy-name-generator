@@ -12,7 +12,7 @@ import { router } from "./backend/routes/names.js"
 
 
 app.use(cors({
-    origin: "https://lukes-dm-toolkit.onrender.com/"
+    origin: "https://fng-backend2.onrender.com"
 }))
 app.use(express.json());
 
