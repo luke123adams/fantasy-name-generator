@@ -48,7 +48,10 @@ function App() {
 
 
   async function getNames(){
-    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list/${userEmail}`)
+    const response = await fetch (`${process.env.REACT_APP_SERVERURL}/api/user-list/${userEmail}`,
+    {
+      headers: {"Access-Control-Allow-Origin": "*"}
+    })
     const data = await response.json()
    setSavedNames(data.payload)
     console.log(data.payload)
