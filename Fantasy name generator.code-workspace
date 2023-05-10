@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../github-classroom/SchoolOfCode/bc13_w6d1_workshop_testing-with-jest-luke_jeremy"
+		},
+		{
+			"path": "../../../github-classroom/Typescript tutorials"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Typescript tutorials"
+	}
+}
