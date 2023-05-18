@@ -22,6 +22,7 @@ function App() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   const [showAuth, setShowAuth] = useState(false)
   const [showList, setShowList] = useState(false)
+  const [showInput, setShowInput] = useState(false)
   const [showDiceRoller, setShowDiceRoller] = useState(false)
   const [savedNames, setSavedNames] = useState([])
   const authToken = cookies.AuthToken
@@ -112,7 +113,9 @@ function App() {
       <header className="App-header">
         <h1>Uri's Fantasy name generator V 0.000000002</h1>
         <img src="https://assets1.ignimgs.com/2019/05/29/dndmobile-br-1559158957902_160w.jpg?width=1280" className="App-logo" alt="logo" />
-        <div>
+        </header>
+        <div className="navbar-main-container">
+        <div className="navbar">
         {!authToken && <button onClick={()=>{
           setShowAuth(true)
           console.log("clicked")
@@ -127,25 +130,25 @@ function App() {
         setShowAuth(false)
         setShowList(false)
         }}>SIGN OUT</button>}
+         {!showInput && <button onClick={()=>{setShowInput(true)}}>Name Generator</button>}
         {authToken && <button 
-        
         onClick={()=>{
           getNames(userEmail)
           setShowList(true)
           console.log(savedNames)
         }}>View my saved names</button>}
+        {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>}
+
         </div>
-        <div>
+
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
-        </div>
-      </header>
-      {showList && <UserList getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
-      <Input getRandomName={getRandomName}/>
+          {showList && <UserList getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+      {showInput && <Input getRandomName={getRandomName} setShowInput={setShowInput}/>}
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
       </p>
-      {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>}
       {showDiceRoller && <DiceRoller setShowDiceRoller={setShowDiceRoller}/>}
+        </div>
     </div>
   );
 }
