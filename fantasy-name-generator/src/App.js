@@ -134,10 +134,12 @@ function App() {
         {authToken && <button 
         onClick={()=>{
           getNames(userEmail)
-          setShowList(true)
+          setShowList(true);
+          setShowDiceRoller(false);
+          setShowInput(false)
           console.log(savedNames)
         }}>View my saved names</button>}
-        {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true)}}>Dice Roller</button>}
+        {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true); setShowInput(false); setShowList(false)}}>Dice Roller</button>}
 
         </div>
 
