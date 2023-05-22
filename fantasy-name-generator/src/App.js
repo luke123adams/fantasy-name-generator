@@ -7,6 +7,7 @@ import Modal from './components/Modal';
 import { Login } from './components/login';
 import UserList from './components/UserList';
 import { useCookies } from 'react-cookie';
+import { NameEditor } from './components/NameEditor';
 
 // import useRNG from './components/hooks/useRNG';
 // import useRNG from './components/hooks/useRNG';
@@ -24,12 +25,19 @@ function App() {
   const [showList, setShowList] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [showDiceRoller, setShowDiceRoller] = useState(false)
+  const [showEditor, setShowEditor] = useState(false)
   const [savedNames, setSavedNames] = useState([])
+  const [nameDetails, setNameDetails] = useState({
+    fullName: "",
+    nameId: "",
+    description: ""
+  })
   const authToken = cookies.AuthToken
   const userEmail = cookies.Email
 
   useEffect(()=>{
     console.log('listChanged')
+
   }, [savedNames])
 
   async function getRandomName(formData) {
@@ -100,6 +108,17 @@ function App() {
       </div>
     )
   }
+
+  const handleDetails = (full_name, id, description) => {
+    console.log(full_name, id, description)
+    setShowEditor(true)
+    setShowList(false)
+    setNameDetails({
+      fullName: full_name,
+      nameId: id,
+      description: description
+    })
+  }
  
 
   // useEffect((formData)=>{
@@ -133,7 +152,7 @@ function App() {
          {!showInput && <button onClick={()=>{setShowInput(true)}}>Name Generator</button>}
         {authToken && <button 
         onClick={()=>{
-          getNames(userEmail)
+          getNames(userEmail) 
           setShowList(true);
           setShowDiceRoller(false);
           setShowInput(false)
@@ -144,7 +163,8 @@ function App() {
         </div>
 
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
-          {showList && <UserList getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+          {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+          {showEditor && <NameEditor setNameDetails={()=>{setNameDetails()}}getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
       {showInput && <Input getRandomName={getRandomName} setShowInput={setShowInput}/>}
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
