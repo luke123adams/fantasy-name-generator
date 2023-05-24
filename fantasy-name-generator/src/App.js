@@ -38,7 +38,7 @@ function App() {
   useEffect(()=>{
     console.log('listChanged')
 
-  }, [savedNames])
+  }, [savedNames, nameDetails])
 
   async function getRandomName(formData) {
     console.log(`${process.env.REACT_APP_SERVERURL}/api/names/${formData.race}/${formData.gender}`)
@@ -164,7 +164,7 @@ function App() {
 
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
           {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
-          {showEditor && <NameEditor setNameDetails={()=>{setNameDetails()}}getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
+          {showEditor && <NameEditor setShowEditor={setShowEditor} setShowList={setShowList} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
       {showInput && <Input getRandomName={getRandomName} setShowInput={setShowInput}/>}
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}

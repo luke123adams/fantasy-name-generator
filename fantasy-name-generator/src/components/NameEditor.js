@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react'
 
-export function NameEditor ({ getNames, nameDetails, setNameDetails}) {
+export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetails, setShowList}) {
 
     const [editMode, setEditMode] = useState(false)
     const [showDetails, setShowDetails] = useState(false)
-    const { fullName, nameId, description } = nameDetails
-
-    useEffect(()=>{
-      
-    })
+    let { fullName, nameId, description } = nameDetails
 
 
     const handleClick = async (e) => {
@@ -24,6 +20,7 @@ export function NameEditor ({ getNames, nameDetails, setNameDetails}) {
         })
         getNames()
         setEditMode(false)
+        setShowDetails(false)
 
         return response
         
@@ -34,7 +31,7 @@ export function NameEditor ({ getNames, nameDetails, setNameDetails}) {
     <button onClick={()=>{console.log(nameId)}}>console log details</button>
       {editMode ? <textarea rows="4" cols="50" id={nameId}>{description}</textarea> : <p>{description}</p>}
       {editMode ? <button onClick={()=>{handleClick(document.getElementById(nameId))}}>Save changes</button> : <button onClick={()=>{setEditMode(true)}}>Edit</button>}
-      <button onClick={()=>{setShowDetails(false)}}>Hide details</button>
+      <button onClick={()=>{setShowEditor(false); setShowList(true)}}>Back to list</button>
     </div>
   )
 
