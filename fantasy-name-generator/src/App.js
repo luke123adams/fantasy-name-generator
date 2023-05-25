@@ -6,6 +6,7 @@ import Auth from './components/Auth.js';
 import Modal from './components/Modal';
 import { Login } from './components/login';
 import UserList from './components/UserList';
+import UserProfile from './components/UserProfile';
 import { useCookies } from 'react-cookie';
 import { NameEditor } from './components/NameEditor';
 
@@ -25,6 +26,7 @@ function App() {
   const [showList, setShowList] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [showDiceRoller, setShowDiceRoller] = useState(false)
+  const [showUserProfile, setShowUserProfile] = useState(false)
   const [showEditor, setShowEditor] = useState(false)
   const [savedNames, setSavedNames] = useState([])
   const [nameDetails, setNameDetails] = useState({
@@ -162,9 +164,11 @@ function App() {
           console.log(savedNames)
         }}>View my saved names</button>}
         {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true); setShowInput(false); setShowList(false)}}>Dice Roller</button>}
+        {!showUserProfile && <button onClick={()=>{setShowUserProfile(true)}}>My Profile</button>}
 
         </div>
 
+          {showUserProfile && <UserProfile cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
           {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
           {showEditor && <NameEditor setShowEditor={setShowEditor} setShowList={setShowList} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
