@@ -2,9 +2,16 @@ import React, {useState, useEffect} from 'react'
 
 export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetails, setShowList}) {
 
+  let { fullName, nameId, description } = nameDetails
+
     const [editMode, setEditMode] = useState(false)
     const [showDetails, setShowDetails] = useState(false)
-    let { fullName, nameId, description } = nameDetails
+    const [desc, setDesc] = useState(description)
+
+    const handleChange = (e) => {
+      setDesc(e.target.value)
+      console.log(desc)
+    }
 
 
     const handleClick = async (e) => {
@@ -20,16 +27,15 @@ export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetai
         })
         getNames()
         setEditMode(false)
-        setShowDetails(false)
-
+        setShowList(false)
         return response
         
     }
      
   return (
     <div>
-    <button onClick={()=>{console.log(nameId)}}>console log details</button>
-      {editMode ? <textarea rows="4" cols="50" id={nameId}>{description}</textarea> : <p>{description}</p>}
+    <h1>{fullName}</h1>
+      {editMode ? <textarea onChange={(e)=>{handleChange(e)}}rows="4" cols="50" id={nameId}>{desc}</textarea> : <p>{desc}</p>}
       {editMode ? <button onClick={()=>{handleClick(document.getElementById(nameId))}}>Save changes</button> : <button onClick={()=>{setEditMode(true)}}>Edit</button>}
       <button onClick={()=>{setShowEditor(false); setShowList(true)}}>Back to list</button>
     </div>

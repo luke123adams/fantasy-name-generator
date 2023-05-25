@@ -18,8 +18,6 @@ router.post('/signup' , async (req, res) => {
     const { email, password, username } = req.body
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(password, salt)
-    console.log(email, password, username)
-
     try {
 
     const signUp = await addNewUser(email, hashedPassword, username)

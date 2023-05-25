@@ -37,7 +37,6 @@ results.push((Math.ceil(Math.random()*type)));
     return (
 
         <div>
-    <button onClick={()=>{console.log(diceHistory[0].rolls.length)}}>console log</button>
     {diceHistory.map((results, i)=>
         <li>{results.rolls.length}D{results.D} + {results.mod} = {results.total} ({results.rolls.map((roll, i)=>i !== results.rolls.length-1 ? <text>{roll}, </text> : <text>{roll}</text>)}) <button onClick={()=>{reRollHistoric(results.rolls.length, results.D, results.mod, i)}}>Re-roll</button> <button onClick={()=>{deleteRow(i)}}>Delete roll</button></li>
     )}

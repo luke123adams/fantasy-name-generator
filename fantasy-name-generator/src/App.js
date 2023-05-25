@@ -34,6 +34,7 @@ function App() {
   })
   const authToken = cookies.AuthToken
   const userEmail = cookies.Email
+  const username = cookies.username
 
   useEffect(()=>{
     console.log('listChanged')
@@ -148,6 +149,8 @@ function App() {
         removeCookie('AuthToken')
         setShowAuth(false)
         setShowList(false)
+        setShowEditor(false)
+        setShowDiceRoller(false)
         }}>SIGN OUT</button>}
          {!showInput && <button onClick={()=>{setShowInput(true)}}>Name Generator</button>}
         {authToken && <button 
@@ -163,7 +166,7 @@ function App() {
         </div>
 
           {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
-          {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+          {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
           {showEditor && <NameEditor setShowEditor={setShowEditor} setShowList={setShowList} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
       {showInput && <Input getRandomName={getRandomName} setShowInput={setShowInput}/>}
       <p>{fullName.name}
