@@ -2,9 +2,11 @@ import express from 'express'
 export const router = express.Router()
 import { addNewUser } from '../models/signup'
 
-app.post('/signup/:email/:password' , async (req, res) => {
+app.post('/signup' , async (req, res) => {
 
-    const response = await addNewUser(req.params.email, req.params.password)
+    const { email, password, username } = req.body
+
+    const response = await addNewUser(email, password, username)
 
     return res
 })

@@ -1,0 +1,10 @@
+.Name-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Name-item {
+    display: flex;
+    background-color: red
+}

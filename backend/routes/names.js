@@ -15,23 +15,20 @@ router.get('/names/:race/:gender', async (req, res) => {
 
 router.post('/signup' , async (req, res) => {
 
-    const { email, password } = req.body
+    const { email, password, username } = req.body
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(password, salt)
-
     try {
 
-    const signUp = await addNewUser(email, hashedPassword)
+    const signUp = await addNewUser(email, hashedPassword, username)
     const token = jwt.sign({ email }, 'secret', { expiresIn: '1hr' })
-    res.json({ email, token })
+    res.json({ email, token, username })
     } catch (err) {
         console.error(err)
         if (err) {
             res.json({detail: err.detail})
         }
     }
-
-
         
 })
 
@@ -47,9 +44,9 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ email }, 'secret', { expiresIn: '1hr'})
 
       if (success) {
-        res.json({ 'email' : users.rows[0].email, token})
+        res.json({ 'email' : users.rows[0].email, token, 'username' : users.rows[0].username})
   } else {
-        res.json({detail: 'Login failed'})
+        res.json({detail: 'Login failed - email not found'})
   }
 
     } catch (err) {

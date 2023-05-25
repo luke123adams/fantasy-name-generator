@@ -7,6 +7,7 @@ export default function Auth({setShowAuth, showAuth}) {
   const [isLogIn, setIsLogin] = useState(true);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState(null)
   const [confirmPassword, setConfirmPassword] = useState(null);
 
   console.log(cookies)
@@ -26,6 +27,8 @@ export default function Auth({setShowAuth, showAuth}) {
       return;
     }
 
+    if (endpoint === "login") {
+
     const response = await fetch(
       `${process.env.REACT_APP_SERVERURL}/api/${endpoint}`,
       {
@@ -41,22 +44,53 @@ export default function Auth({setShowAuth, showAuth}) {
       setError(data.detail)
     } else {
       setCookie('Email', data.email)
+      setCookie('username', data.username)
       setCookie('AuthToken', data)
       console.log(cookies)
       window.location.reload()
     }
-  };
+  }
+    else {
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVERURL}/api/${endpoint}`,
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ email, password, username }),
+        }
+      );
+      const data = await response.json();
+    console.log(data)
+    if (data.detail) {
+      setError(data.detail)
+    } else {
+      setCookie('Email', data.email)
+      setCookie('username', data.username)
+      setCookie('AuthToken', data)
+      console.log(cookies)
+      window.location.reload()
+    }
+    }
+  }
 
   return (
     <div className="auth-container">
       <div className="auth-container-box">
         <form>
           <h2>{isLogIn ? "Please log in" : "Please sign up!"}</h2>
+          
           <input
             type="email"
-            placeholder="email"
+            placeholder={isLogIn? "email/username" : "email"}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {!isLogIn && <input
+            type="username"
+            placeholder="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          }
           <input
             type="password"
             placeholder="password"
