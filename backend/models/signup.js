@@ -24,7 +24,26 @@ export async function logInUser(email) {
       }
 
       else {
+
             const logIn = await pool.query('SELECT * FROM users WHERE username = $1', [email])
+
       return logIn
       }
 }
+
+export async function editCredentials (creds, email, ) {
+
+      if (isPassword === true) {
+
+
+            return (await pool.query('UPDATE users SET hashed_password=$1 WHERE email=$2', [creds, email]))
+      }
+
+      else {
+
+            return (await pool.query('UPDATE users SET username=$1 WHERE email=$2'[creds, email]))
+
+      }
+}
+
+      

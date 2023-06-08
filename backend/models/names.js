@@ -43,3 +43,8 @@ export async function editDescription(newDescription, nameId) {
 
     const response = await pool.query(`UPDATE saved_names SET description=$1 WHERE id=$2`, [newDescription, nameId])
 }
+
+export async function editName (newUsername, userEmail) {
+
+    const response = await pool.query(`UPDATE users SET username=$1 WHERE email=$2`, [newUsername, userEmail])
+}

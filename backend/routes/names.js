@@ -1,7 +1,7 @@
 import express from 'express'
 export const router = express.Router()
 import { addNewUser, logInUser } from '../models/signup.js'
-import { getNames, addName, getUserNames, deleteName, editDescription } from '../models/names.js'
+import { getNames, addName, getUserNames, deleteName, editDescription, editName } from '../models/names.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -95,4 +95,28 @@ router.patch('/user-list', async (req, res) => {
     const editedDescription = await editDescription(newDescription, nameId)
 
     res.json({success: true, payload: editedDescription})
+})
+
+router.patch('/user-creds', async (req, res) => {
+
+    const users = await logInUser(email);
+
+    const { creds, email, isPassword, oldPassword, newPassword } = req.body
+
+    const success = await bcrypt.compare(oldPassword, users.rows[0].hashed_password)
+
+
+
+    const editedCredentials = await editCredentials(creds, email, isPassword, oldPassword)
+
+    res.json({success: true, payload: editedCredentials})
+}) 
+
+router.patch('/user-list/editname', async (req, res) => {
+
+    const { newUsername, userEmail } = req.body
+
+    const editedUsername = await editName(newUsername, userEmail)
+
+    res.json({success: true, payload: editedUsername})
 })
