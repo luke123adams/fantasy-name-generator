@@ -160,7 +160,7 @@ function App() {
           {showModule === 'UserProfile' && <UserProfile cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
           {showModule === 'Auth' && <Auth setShowModule={setShowModule} showModule={showModule}/>}
           {showModule === 'List' && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowModule={setShowModule} deleteName={(full_name)=>{deleteName(full_name)}}/>}
-          {showModule === 'NameEditor' && <NameEditor setShowModule={setShowModule} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
+          {showModule === 'Editor' && <NameEditor setShowModule={setShowModule} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
       {showModule === 'Input' && <Input getRandomName={getRandomName} setShowModule={setShowModule}/>}
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
