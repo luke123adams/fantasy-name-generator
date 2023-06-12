@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCookies } from 'react-cookie'
 
-export default function Auth({setShowAuth, showAuth}) {
+export default function Auth({setShowModule, showModule}) {
   const [cookies, setCookie, removeCookie] = useCookies()
   const [error, setError] = useState(null);
   const [isLogIn, setIsLogin] = useState(true);
@@ -107,8 +107,8 @@ export default function Auth({setShowAuth, showAuth}) {
             onClick={(e) => handleSubmit(e, isLogIn ? "login" : "signup")}
           />
           <button onClick={
-            ()=>{setShowAuth(false)
-            console.log(showAuth)}}
+            ()=>{setShowModule('null')
+            console.log(showModule)}}
             >X</button>
           {error && <p>{error}</p>}
         </form>

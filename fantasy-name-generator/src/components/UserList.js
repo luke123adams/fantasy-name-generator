@@ -3,13 +3,13 @@ import { useCookies } from 'react-cookie'
 import { NameEditor } from './NameEditor'
 import { ListItem } from './ListItem'
 
-export default function UserList({ handleDetails, userEmail, username, savedNames, setShowList, deleteName, getNames }) {
+export default function UserList({ handleDetails, userEmail, username, savedNames, setShowModule, deleteName, getNames }) {
 
 
     return (
         <div>
         <h1 style={{display: "inline-block"}}>Welcome back, {username}
-        <button onClick={()=>{setShowList(false)}}>X</button>
+        <button onClick={()=>{setShowModule(null)}}>X</button>
         </h1>
         <br>
         </br>

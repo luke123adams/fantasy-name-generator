@@ -46,5 +46,7 @@ export async function editDescription(newDescription, nameId) {
 
 export async function editName (newUsername, userEmail) {
 
-    const response = await pool.query(`UPDATE users SET username=$1 WHERE email=$2`, [newUsername, userEmail])
+    console.log(userEmail, newUsername)
+
+    const response = await pool.query(`UPDATE users SET username=$1 WHERE email=$2 RETURNING *`, [newUsername, userEmail])
 }

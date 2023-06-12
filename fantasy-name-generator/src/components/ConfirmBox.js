@@ -1,6 +1,8 @@
 import  React, {useState, useEffect} from 'react'
 
-export default function ConfirmBox ({setShowConfirm, newUsername, userEmail}) {
+export default function ConfirmBox ({setShowEditor, cookies, setShowConfirm, newUsername, userEmail, setCookie}) {
+
+    
 
     const handleClick = async () => {
 
@@ -10,8 +12,12 @@ export default function ConfirmBox ({setShowConfirm, newUsername, userEmail}) {
      headers: { "Content-type": "application/json" },
      body: JSON.stringify({ newUsername, userEmail }),
     })
+    
 
-    return response
+    const data = await response.json()
+    setCookie('username', data.username)
+    setShowConfirm(false)
+    setShowEditor(null)
 
     }
 

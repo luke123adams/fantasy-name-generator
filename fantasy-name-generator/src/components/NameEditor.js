@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetails, setShowList}) {
+export function NameEditor ({ getNames, nameDetails, setNameDetails, setShowModule }) {
 
   let { fullName, nameId, description } = nameDetails
 
@@ -27,7 +27,7 @@ export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetai
         })
         getNames()
         setEditMode(false)
-        setShowList(false)
+        setShowModule(null)
         return response
         
     }
@@ -37,7 +37,7 @@ export function NameEditor ({ setShowEditor, getNames, nameDetails, setNameDetai
     <h1>{fullName}</h1>
       {editMode ? <textarea onChange={(e)=>{handleChange(e)}}rows="4" cols="50" id={nameId}>{desc}</textarea> : <p>{desc}</p>}
       {editMode ? <button onClick={()=>{handleClick(document.getElementById(nameId))}}>Save changes</button> : <button onClick={()=>{setEditMode(true)}}>Edit</button>}
-      <button onClick={()=>{setShowEditor(false); setShowList(true)}}>Back to list</button>
+      <button onClick={()=>{setShowModule('List')}}>Back to list</button>
     </div>
   )
 

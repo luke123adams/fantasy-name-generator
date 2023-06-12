@@ -26,7 +26,7 @@ export default function UserProfile ({cookies, setCookie, removeCookie}) {
         <button onClick={()=>{setShowEditor(null); setShowButtons(true); setShowConfirm(false)}}>X</button>
         <input placeholder='enter new username' onChange={(e)=>{setUserNameInput(e.target.value); console.log(e.target.value)}}></input>
         <button onClick={()=>{setShowConfirm(true)}}>Change</button>
-        {showConfirm && <ConfirmBox userEmail={userEmail} newUsername={usernameInput} setShowConfirm={()=>{setShowConfirm()}}/>}
+        {showConfirm && <ConfirmBox setShowEditor={setShowEditor} setShowButtons={setShowButtons} cookies={cookies} setCookie={()=>{setCookie()}}userEmail={userEmail} newUsername={usernameInput} setShowConfirm={()=>{setShowConfirm()}}/>}
         </div>}
         { showEditor === 'password' && <div>
             <button onClick={()=>{setShowEditor(null); setShowButtons(true)}}>X</button>

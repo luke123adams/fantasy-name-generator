@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 
-export function Input ({getRandomName, setShowInput}){
+export function Input ({getRandomName, setShowModule}){
     
     const [ formData, setFormData ] = useState(
         {
@@ -38,7 +38,7 @@ export function Input ({getRandomName, setShowInput}){
 
     return (
         <div>
-        <button onClick={()=>{setShowInput(false)}}>X</button>
+        <button onClick={()=>{setShowModule(null)}}>X</button>
         <form>
         <fieldset>
         <legend>Race:</legend>

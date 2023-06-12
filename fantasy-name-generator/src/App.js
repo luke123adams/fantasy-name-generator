@@ -22,12 +22,7 @@ function App() {
   })
 
   const [cookies, setCookie, removeCookie] = useCookies(null)
-  const [showAuth, setShowAuth] = useState(false)
-  const [showList, setShowList] = useState(false)
-  const [showInput, setShowInput] = useState(false)
-  const [showDiceRoller, setShowDiceRoller] = useState(false)
-  const [showUserProfile, setShowUserProfile] = useState(false)
-  const [showEditor, setShowEditor] = useState(false)
+  const [showModule, setShowModule] = useState(null)
   const [savedNames, setSavedNames] = useState([])
   const [nameDetails, setNameDetails] = useState({
     fullName: "",
@@ -114,8 +109,7 @@ function App() {
 
   const handleDetails = (full_name, id, description) => {
     console.log(full_name, id, description)
-    setShowEditor(true)
-    setShowList(false)
+    setShowModule('Editor')
     setNameDetails({
       fullName: full_name,
       nameId: id,
@@ -139,7 +133,7 @@ function App() {
         <div className="navbar-main-container">
         <div className="navbar">
         {!authToken && <button onClick={()=>{
-          setShowAuth(true)
+          setShowModule('Auth')
           console.log("clicked")
         }}>SIGNUP/LOGIN</button>}
 
@@ -149,34 +143,29 @@ function App() {
             console.log("signout")
         removeCookie('Email')
         removeCookie('AuthToken')
-        setShowAuth(false)
-        setShowList(false)
-        setShowEditor(false)
-        setShowDiceRoller(false)
+        setShowModule(null)
         }}>SIGN OUT</button>}
-         {!showInput && <button onClick={()=>{setShowInput(true)}}>Name Generator</button>}
+         {showModule !== 'Input' && <button onClick={()=>{setShowModule('Input')}}>Name Generator</button>}
         {authToken && <button 
         onClick={()=>{
           getNames(userEmail) 
-          setShowList(true);
-          setShowDiceRoller(false);
-          setShowInput(false)
+          setShowModule('List');
           console.log(savedNames)
         }}>View my saved names</button>}
-        {!showDiceRoller && <button onClick={()=>{setShowDiceRoller(true); setShowInput(false); setShowList(false)}}>Dice Roller</button>}
-        {!showUserProfile && <button onClick={()=>{setShowUserProfile(true)}}>My Profile</button>}
+        {showModule !== 'DiceRoller' && <button onClick={()=>{setShowModule('DiceRoller')}}>Dice Roller</button>}
+        {showModule !== 'UserProfile' && <button onClick={()=>{setShowModule('UserProfile')}}>My Profile</button>}
 
         </div>
 
-          {showUserProfile && <UserProfile cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
-          {showAuth && <Auth setShowAuth={setShowAuth} showAuth={showAuth}/>}
-          {showList && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowList={()=>{setShowList()}} deleteName={(full_name)=>{deleteName(full_name)}}/>}
-          {showEditor && <NameEditor setShowEditor={setShowEditor} setShowList={setShowList} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
-      {showInput && <Input getRandomName={getRandomName} setShowInput={setShowInput}/>}
+          {showModule === 'UserProfile' && <UserProfile cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
+          {showModule === 'Auth' && <Auth setShowModule={setShowModule} showModule={showModule}/>}
+          {showModule === 'List' && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowModule={setShowModule} deleteName={(full_name)=>{deleteName(full_name)}}/>}
+          {showModule === 'NameEditor' && <NameEditor setShowModule={setShowModule} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
+      {showModule === 'Input' && <Input getRandomName={getRandomName} setShowModule={setShowModule}/>}
       <p>{fullName.name}
       {fullName.name.length !== 0 && addToListButton()}
       </p>
-      {showDiceRoller && <DiceRoller setShowDiceRoller={setShowDiceRoller}/>}
+      {showModule === 'DiceRoller' && <DiceRoller setShowModule={setShowModule}/>}
         </div>
     </div>
   );
