@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import ConfirmBox from './ConfirmBox'
 
-export default function UserProfile ({cookies, setCookie, removeCookie}) {
+export default function UserProfile ({setShowModule, cookies, setCookie, removeCookie}) {
 
     const [showButtons, setShowButtons] = useState(true)
     const [showEditor, setShowEditor] = useState(null)
@@ -20,6 +20,7 @@ export default function UserProfile ({cookies, setCookie, removeCookie}) {
     return (
         <div>
         <text>Welcome back, {username}</text>
+        <button onClick={()=>{setShowModule(null)}}>X</button>
         { showButtons && <button onClick={()=>{setShowButtons(false); setShowEditor('username')}}>Change username</button>}
         { showButtons && <button onClick={()=>{setShowButtons(false); setShowEditor('password')}}>Change password</button>}
         { showEditor === 'username' && <div>

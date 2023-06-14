@@ -116,6 +116,8 @@ router.patch('/user-list/editname', async (req, res) => {
 
     const { newUsername, userEmail } = req.body
 
+    // console.log(newUsername, userEmail)
+
     const editedUsername = await editName(newUsername, userEmail)
 
     res.json({success: true, payload: editedUsername})

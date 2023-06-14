@@ -6,18 +6,21 @@ export default function ConfirmBox ({setShowEditor, cookies, setShowConfirm, new
 
     const handleClick = async () => {
 
-        const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/user-list/editname`, 
+        console.log(newUsername, userEmail)
+
+
+        const response = await fetch(`${process.env.REACT_APP_SERVERURL}/api/user-list/editname`,
     {
-      method: "PATCH",
+     method: "PATCH",
      headers: { "Content-type": "application/json" },
      body: JSON.stringify({ newUsername, userEmail }),
-    })
+    }
+    )
     
 
     const data = await response.json()
     setCookie('username', data.username)
     setShowConfirm(false)
-    setShowEditor(null)
 
     }
 

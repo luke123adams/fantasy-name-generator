@@ -153,11 +153,11 @@ function App() {
           console.log(savedNames)
         }}>View my saved names</button>}
         {showModule !== 'DiceRoller' && <button onClick={()=>{setShowModule('DiceRoller')}}>Dice Roller</button>}
-        {showModule !== 'UserProfile' && <button onClick={()=>{setShowModule('UserProfile')}}>My Profile</button>}
+        {authToken && showModule !== 'UserProfile' && <button onClick={()=>{setShowModule('UserProfile')}}>My Profile</button>}
 
         </div>
 
-          {showModule === 'UserProfile' && <UserProfile cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
+          {showModule === 'UserProfile' && <UserProfile setShowModule={setShowModule} cookies={cookies} setCookie={setCookie} removeCookie={removeCookie}/>}
           {showModule === 'Auth' && <Auth setShowModule={setShowModule} showModule={showModule}/>}
           {showModule === 'List' && <UserList handleDetails={handleDetails} getNames={()=>{getNames()}} savedNames={savedNames} fullName={fullName} userEmail={userEmail} username={cookies.username} setShowModule={setShowModule} deleteName={(full_name)=>{deleteName(full_name)}}/>}
           {showModule === 'Editor' && <NameEditor setShowModule={setShowModule} savedNames={savedNames} setNameDetails={()=>{setNameDetails()}} getNames={()=>{getNames()}} nameDetails={nameDetails}></NameEditor>}
