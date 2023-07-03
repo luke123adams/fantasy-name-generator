@@ -22,6 +22,12 @@ export async function addName (fullName, userEmail) {
     return response
 }
 
+export async function getCredentials (userEmail) {
+
+    const response = await pool.query("SELECT * FROM users WHERE email=$1", [userEmail])
+    return response.rows
+}
+
 export async function getUserNames(userEmail) {
 
     const response = await pool.query('SELECT * FROM saved_names WHERE user_email=$1', [userEmail])
@@ -48,5 +54,7 @@ export async function editName (newUsername, userEmail) {
 
      console.log( userEmail, newUsername )
 
-    const response = await pool.query(`UPDATE users SET username=$1 WHERE email=$2 RETURNING *`, [newUsername, userEmail])
+    const response = await pool.query(`UPDATE users SET username=$1 WHERE email=$2 RETURNING username`, [newUsername, userEmail])
+    
+    return response.rows[0].username
 }

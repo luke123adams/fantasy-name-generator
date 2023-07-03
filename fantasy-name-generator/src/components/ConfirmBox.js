@@ -1,8 +1,8 @@
 import  React, {useState, useEffect} from 'react'
+import {getAll, get} from 'react-cookie'
 
-export default function ConfirmBox ({setShowEditor, cookies, setShowConfirm, newUsername, userEmail, setCookie}) {
+export default function ConfirmBox ({username, setUsername, setShowEditor, cookies, setShowConfirm, newUsername, userEmail, setCookie, removeCookie}) {
 
-    
 
     const handleClick = async () => {
 
@@ -19,9 +19,16 @@ export default function ConfirmBox ({setShowEditor, cookies, setShowConfirm, new
     
 
     const data = await response.json()
-    setCookie('username', data.username)
-    setShowConfirm(false)
+    console.log('payload:' + data.payload)
+    console.log('confirm clicked')
+    removeCookie('username')
+    setCookie('username', data.payload)
+    getAll()
+    console.log('username cookie: ' + cookies.username)
+    setUsername(data.payload)
+    console.log('username: ' + username)
 
+    setShowConfirm(false)
     }
 
         return (

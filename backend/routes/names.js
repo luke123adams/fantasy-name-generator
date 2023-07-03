@@ -1,9 +1,11 @@
 import express from 'express'
 export const router = express.Router()
 import { addNewUser, logInUser } from '../models/signup.js'
-import { getNames, addName, getUserNames, deleteName, editDescription, editName } from '../models/names.js'
+import { getNames, addName, getUserNames, deleteName, editDescription, editName, getCredentials } from '../models/names.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
+// get randomly generated name
 
 router.get('/names/:race/:gender', async (req, res) => {
 
@@ -12,6 +14,7 @@ router.get('/names/:race/:gender', async (req, res) => {
 })
 
 
+// signup new user
 
 router.post('/signup' , async (req, res) => {
 
@@ -31,6 +34,8 @@ router.post('/signup' , async (req, res) => {
     }
         
 })
+
+// login user
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
@@ -54,6 +59,8 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// post new generated name to user custom list
+
 router.post('/user-list', async (req, res) => {
 
     const { fullName, userEmail } = req.body
@@ -70,6 +77,8 @@ router.post('/user-list', async (req, res) => {
   }
 })
 
+// get logged-in user's list of saved names
+
 router.get('/user-list/:userEmail', async (req, res) => {
 
     
@@ -77,6 +86,8 @@ router.get('/user-list/:userEmail', async (req, res) => {
 
     res.json({success: true, payload: nameList})
 })
+
+// delete name from user's list
 
 router.delete('/user-list' , async (req, res) => {
 
@@ -88,6 +99,8 @@ router.delete('/user-list' , async (req, res) => {
     res.json({success: true, payload: deletedName})
 })
 
+// edit description of name on user list
+
 router.patch('/user-list', async (req, res) => {
 
     const { newDescription, nameId } = req.body
@@ -96,6 +109,8 @@ router.patch('/user-list', async (req, res) => {
 
     res.json({success: true, payload: editedDescription})
 })
+
+// update user password (work in progress)
 
 router.patch('/user-creds', async (req, res) => {
 
@@ -110,7 +125,9 @@ router.patch('/user-creds', async (req, res) => {
     const editedCredentials = await editCredentials(creds, email, isPassword, oldPassword)
 
     res.json({success: true, payload: editedCredentials})
-}) 
+})
+
+// update username
 
 router.patch('/user-list/editname', async (req, res) => {
 
@@ -121,4 +138,16 @@ router.patch('/user-list/editname', async (req, res) => {
     const editedUsername = await editName(newUsername, userEmail)
 
     res.json({success: true, payload: editedUsername})
+    // console.log(res)
+})
+
+// get user credentials
+
+router.get('/user-creds', async (req, res) => {
+
+    const { userEmail } = req.body
+
+    const creds = await getCredentials(userEmail)
+
+    res.json({success: true, payload: creds})
 })

@@ -1,0 +1,13 @@
+----
+PLAN
+----
+
+Adding password change option:
+
+Needs to validate in backend
+
+Look at how the encryption works in the tutorial modal
+Try and reverse engineer it
+
+how do we check password against the one in the db - Want to avoid having a direct API call that provides the passwords even if they're encrypted
+
